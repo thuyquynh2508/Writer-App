@@ -30,6 +30,8 @@
 
 .file-info__name-text {
     font-size: 20px;
+    background-color: var(--primary-color);
+    border: none;
 }
 
 .file-info__detail {
@@ -144,9 +146,6 @@
     color: var(--text-note-color);
 }
 
-.file-recent-date__hour {
-    padding-left: 5px;
-}
 .return-btn {
     font-size: 40px;
     width: fit-content;
