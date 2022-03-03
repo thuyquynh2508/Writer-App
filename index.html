@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Writer App</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./assets/css/base.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+  <div class="file-page open">
+    <div class="file-header">
+      <div class="file-header__info">
+        <div class="file-info">
+          <div class="file-info__name">
+            <i class="file-info__name-icon fas fa-file-alt"></i>
+            <p class="file-info__name-text">Javascript cơ bản</p>
+          </div>
+          <div class="file-info__detail">
+            <button class="btn file-info__detail-star">
+              <i class="fas fa-star"></i>
+            </button>
+            <button class="btn file-info__detail-status">
+              <i class="fas fa-info-circle"></i>
+            </button>
+          </div>
+        </div>
+        <ul class="file-bar">    
+          <li class="btn file-bar__file-btn">
+            File
+            <div class="option file-bar__file-option">
+            <button class="option-btn file-option__new">
+              <i class="option-icon fas fa-file"></i>
+              New
+            </button>
+            <button class="option-btn file-option__open">
+              <i class="option-icon far fa-folder-open"></i>
+              Open
+            </button>
+            <button class="option-btn file-option__detail">
+              <i class="option-icon fas fa-info-circle"></i>
+              Detail
+            </button>
+            <button class="option-btn file-option__rename">
+              <i class="option-icon fas fa-file-signature"></i>
+              Rename
+            </button>
+            <button class="option-btn file-option__save">
+              <i class="option-icon fas fa-save"></i>
+              Save
+            </button>
+            <button class="option-btn file-option__download">
+              <i class="option-icon fas fa-download"></i>
+              Download
+            </button>
+            <button class="option-btn file-option__delete">
+              <i class="option-icon fas fa-trash"></i>
+              Move to trash
+            </button>
+            </div>
+          </li>
+          <li class="btn file-bar__edit-btn">
+            Edit
+            <div class="option file-bar__edit-option">
+              <button class="option-btn edit-option__undo">
+                <i class="option-icon fas fa-undo"></i>
+                Undo
+              </button>
+              <button class="option-btn edit-option__redo">
+                <i class="option-icon fas fa-redo"></i>
+                Redo
+              </button>
+              <button class="option-btn edit-option__cut">
+                <i class="option-icon fas fa-cut"></i>
+                Cut
+              </button>
+              <button class="option-btn edit-option__copy">
+                <i class="option-icon fas fa-copy"></i>
+                Copy
+              </button>
+              <button class="option-btn edit-option__paste">
+                <i class="option-icon fas fa-paste"></i>
+                Paste
+              </button>
+              <button class="option-btn edit-option__select">
+                <i class="option-icon fas fa-check-double"></i>
+                Select all
+              </button>
+            </div>
+          </li>
+          <li class="btn file-bar__view-btn">
+            View
+            
+          </li>
+          <li class="btn file-bar__insert-btn">Insert</li>
+          <li class="btn file-bar__format-btn">Format</li>
+          <li class="btn file-bar__help-btn">Help</li>
+          
+          
+        </ul>
+      </div>
+      <div class="file-header__about">
+        <button class="btn header-about-btn file-about__comment">
+          <i class="fas fa-comment-dots"></i>
+        </button>
+        <button class="btn file-about__share">
+          <i class="fas fa-share-alt"></i>
+          <p class="file-about__share-text">Share</p>
+        </button>
+        <button class="btn header-about-btn file-about__person">
+          <i class="fas fa-user-circle"></i>
+        </button>
+      </div>
+    </div>
+    <div class="file-content">
+      <div id="summernote"></div>
+    </div>
+  </div>
+  <div class="recent-page">   
+    <div class="recent-nav">
+      <button class="btn return-btn recent-nav__return">
+        <i class="fa-solid fa-circle-arrow-left"></i>
+      </button>
+      <button class="btn recent-nav__btn recent-nav__new">New</button>
+      <button class="btn recent-nav__btn recent-nav__open">Open</button>
+      <button class="btn recent-nav__btn recent-nav__account">Account</button>
+      <button class="btn recent-nav__btn recent-nav__option">Option</button>
+    </div>
+    <div class="recent-main">
+      <h1 class="recent-header">Recent</h1>
+      <div class="recent-wrap">
+        <div class="recent-body">
+          <h2 class="file-recent__time">Yesterday</h2>
+          <ul class="file-recent">
+            <li class="file-recent__info">
+              <div class="file-recent-wrap">
+                <div class="file-recent-icon">
+                  <i class="far fa-file-alt"></i>
+                </div>
+                <div class="file-recent-name">
+                  <h3 class="file-recent-name__name">Java</h3>
+                  <p class="file-recent-name__location">Web</p>
+                </div>
+              </div>
+              <div class="file-recent-date">
+                <p class="file-recent-date__dmy">1/3/2022</p>
+                <p class="file-recent-date__hour">22:00</p>
+              </div>
+            </li>
+            <li class="file-recent__info">
+              <div class="file-recent-wrap">
+                <div class="file-recent-icon">
+                  <i class="far fa-file-alt"></i>
+                </div>
+                <div class="file-recent-name">
+                  <h3 class="file-recent-name__name">Java</h3>
+                  <p class="file-recent-name__location">Web</p>
+                </div>
+              </div>
+              <div class="file-recent-date">
+                <p class="file-recent-date__dmy">1/3/2022</p>
+                <p class="file-recent-date__hour">22:00</p>
+              </div>
+            </li>
+            <li class="file-recent__info">
+              <div class="file-recent-wrap">
+                <div class="file-recent-icon">
+                  <i class="far fa-file-alt"></i>
+                </div>
+                <div class="file-recent-name">
+                  <h3 class="file-recent-name__name">Java</h3>
+                  <p class="file-recent-name__location">Web</p>
+                </div>
+              </div>
+              <div class="file-recent-date">
+                <p class="file-recent-date__dmy">1/3/2022</p>
+                <p class="file-recent-date__hour">22:00</p>
+              </div>
+            </li>
+          </ul>
+        </div>   
+      </div>
+    </div>
+  </div>
+  
+  <script src="./script/function.js"></script>
+</body>
+</html>
