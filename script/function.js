@@ -2,14 +2,18 @@ const filePage = document.querySelector('.file-page');
 const recentPage = document.querySelector('.recent-page');
 
 const fileContent = document.getElementById('text');
+const fileList = document.querySelector('.file-recent');
+const inputName = document.querySelector('.file-info__name-text');
 
 const openBtn = document.querySelector('.file-option__open');
 const returnBtn = document.querySelector('.recent-nav__return');
 const saveBtn = document.querySelector('.file-option__save');
 const newBtn = document.querySelector('.file-option__new');
+const renameBtn = document.querySelector('.file-option__rename');
+const deleteBtn = document.querySelector('.file-option__delete');
 
-const fileList = document.querySelector('.file-recent');
-const inputName = document.querySelector('.file-info__name-text');
+showNewFile();
+showRecentList();
 function showRecentPage() {
   filePage.classList.add('remove');
   recentPage.classList.add('open');
@@ -22,43 +26,68 @@ function showFilePage() {
 openBtn.addEventListener('click', showRecentPage);
 returnBtn.addEventListener('click', showFilePage);
 
-saveBtn.addEventListener('click', function(e) {
-  // e.preventDefault();
-  // let getFileLocalStorage = localStorage.getItem("New file");
-  // if (getFileLocalStorage == null) {
-  //   fileArr = [];
-  // } else {
-  //   fileArr = JSON.parse(getFileLocalStorage);
-  // }
-
-  // let fileName = '';
-  // let fileText = CKEDITOR.instances.text.getData();
-  // let fileExist = true;
-  // let fileTimeCreate = '';
-  // let fileTimeLastModified = '';
-  // fileArr.push ({
-  //   name: fileName,
-  //   content: fileText,
-  //   isExist: fileExist,
-  //   timeCreate: fileTimeCreate,
-  //   timeLastModified: fileTimeLastModified
-  // });
-  // localStorage.setItem("New file", JSON.stringify(fileArr));
-})
-
 newBtn.addEventListener('click', function(e) {
   e.preventDefault();
+  showNewFile();
+  showRecentList();
+})
+function getFileList() {
   let getFileLocalStorage = localStorage.getItem("New file");
   if (getFileLocalStorage == null) {
     fileArr = [];
   } else {
     fileArr = JSON.parse(getFileLocalStorage);
   }
+  return fileArr;
+}
+saveBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  let fileArr = getFileList();
+  let openIndex = this.getAttribute("indexOpen");
+  let fileIndex;
+  if (openIndex == 0 || openIndex) {
+    fileIndex = openIndex;
+  } else {
+    fileIndex = fileArr.length - 1;
+  }
+  fileArr[fileIndex].name = inputName.value;
+  fileArr[fileIndex].content = CKEDITOR.instances.text.getData();
+  fileArr[fileIndex].timeLastModified = TimeStr();
+  this.removeAttribute("indexOpen");
+  localStorage.setItem("New file", JSON.stringify(fileArr)); 
+})
+
+renameBtn.addEventListener('click', function() {
+  let fileArr = getFileList();
+  let renameIndex = this.getAttribute("indexRename");
+  let fileIndex;
+  if (renameIndex == 0 || renameIndex) {
+    fileIndex = renameIndex;
+  } else {
+    fileIndex = fileArr.length - 1;
+  }
+  document.getElementById('name-input').focus();
+  document.getElementById('name-input').select();
+  inputName.addEventListener('keypress', (e) => {
+    if (e.key == 'Enter') {
+      fileArr[fileIndex].name = inputName.value;
+      localStorage.setItem("New file", JSON.stringify(fileArr)); 
+      showRecentList();
+    }
+  })
+  this.removeAttribute("indexRename");
+});
+
+document.getElementById('name-input').addEventListener('focus', function() {
+
+})
+function createNewFile() {
+  let fileArr = getFileList();
   let fileName = 'Untitled document';
-  let fileText = CKEDITOR.instances.text.getData();
+  let fileText = '';
   let fileExist = true;
   let fileTimeCreate = TimeStr();
-  let fileTimeLastModified = '';
+  let fileTimeLastModified = TimeStr();
   fileArr.push ({
     name: fileName,
     content: fileText,
@@ -67,11 +96,13 @@ newBtn.addEventListener('click', function(e) {
     timeLastModified: fileTimeLastModified
   });
   localStorage.setItem("New file", JSON.stringify(fileArr));
-  showRecentList();
-})
-function showNewFile() {
-
 }
+function showNewFile() {
+  createNewFile();
+  inputName.value = 'Untitled document';
+  CKEDITOR.instances.text.setData("");
+}
+
 // Xây dựng đối tượng Time
 function TimeFormat(day,month,year,hour,minute) {
   this.day = day;
@@ -91,15 +122,10 @@ function TimeStr() {
 }
 
 function showRecentList() {
-  let getFileLocalStorage = localStorage.getItem("New file");
-  if (getFileLocalStorage == null) {
-    fileArr = [];
-  } else {
-    fileArr = JSON.parse(getFileLocalStorage);
-  }
+  let fileArr = getFileList();
   let newFileItem = "";
   fileArr.forEach((element, index) => {
-    newFileItem += `<li class="file-recent__info">
+    newFileItem += `<li class="file-recent__info" onclick="openFile(${index})">
     <div class="file-recent-wrap">
       <div class="file-recent-icon">
         <i class="far fa-file-alt"></i>
@@ -117,8 +143,24 @@ function showRecentList() {
   fileList.innerHTML = newFileItem;
 }
 
-function saveFile(index) {
-  let getFileLocalStorage = localStorage.getItem("New file");
-  fileArr = JSON.parse(getFileLocalStorage);
-
+function openFile(index) {
+  let fileArr = getFileList();
+  saveBtn.setAttribute("indexOpen", index);
+  renameBtn.setAttribute("indexRename", index);
+  deleteBtn.setAttribute("indexDelete", index);
+  inputName.value = fileArr[index].name;
+  CKEDITOR.instances['text'].setData(fileArr[index].content);
+  fileArr[index].timeLastModified = TimeStr();
+  showFilePage();
 }
+
+
+deleteBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  let fileArr = getFileList();
+  let deleteIndex = this.getAttribute("indexDelete");
+  fileArr.splice(deleteIndex, 1);
+  localStorage.setItem("New file", JSON.stringify(fileArr));
+  showRecentList();
+  showRecentPage();
+})

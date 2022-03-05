@@ -30,6 +30,7 @@
 
 .file-info__name-text {
     font-size: 20px;
+    color: var(--white-color);
     background-color: var(--primary-color);
     border: none;
 }
@@ -112,6 +113,7 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 0px;
+    cursor: pointer;
 }
 .file-recent__info::after {
     position: absolute;
