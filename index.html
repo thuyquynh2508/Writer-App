@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="./assets/css/base.css">
   <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/responsive.css">
   <script src="./ckeditor/ckeditor.js"></script>
 </head>
 <body>
@@ -34,10 +35,10 @@
               <i class="option-icon fas fa-file"></i>
               New
             </button>
-            <button class="option-btn file-option__open">
+            <a href="#recent" class="option-btn file-option__open">
               <i class="option-icon far fa-folder-open"></i>
               Open
-            </button>
+            </a>
             <button class="option-btn file-option__detail">
               <i class="option-icon fas fa-info-circle"></i>
               Detail
@@ -50,10 +51,10 @@
               <i class="option-icon fas fa-save"></i>
               Save
             </button>
-            <button class="option-btn file-option__download">
+            <a class="option-btn file-option__download" id="download">
               <i class="option-icon fas fa-download"></i>
               Download
-            </button>
+            </a>
             <button class="option-btn file-option__delete">
               <i class="option-icon fas fa-trash"></i>
               Delete
@@ -96,6 +97,7 @@
           <li class="btn file-bar__format-btn">Format</li>
           <li class="btn file-bar__help-btn">Help</li>
         </ul>
+        
       </div>
       <div class="file-header__about">
         <button class="btn header-about-btn file-about__comment">
@@ -108,13 +110,16 @@
         <button class="btn header-about-btn file-about__person">
           <i class="fas fa-user-circle"></i>
         </button>
+        <button class="btn header-about-btn mobile-menu">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
     </div>
     <div id="file-content">
       <textarea id="text"></textarea>
     </div>
   </div>
-  <div class="recent-page">   
+  <div class="recent-page" id="recent">   
     <div class="recent-nav">
       <button class="btn return-btn recent-nav__return">
         <i class="fa-solid fa-circle-arrow-left"></i>
@@ -126,9 +131,14 @@
     </div>
     <div class="recent-main">
       <h1 class="recent-header">Recent</h1>
+      <input type="text" class="recent-search" placeholder="Search">
+      <div class="recent-selection">
+        <button class="recent-selection-btn recent-selection__saved">Saved</button>
+        <button class="recent-selection-btn recent-selection__favorites">Favorites</button>
+        <button class="recent-selection-btn recent-selection__history">History</button>
+      </div>
       <div class="recent-wrap">
         <div class="recent-body">
-          <h2 class="file-recent__time">Yesterday</h2>
           <ul class="file-recent">
             <!-- Xử lý ở js -->
           </ul>
@@ -149,5 +159,6 @@
   </div>
   <script>CKEDITOR.replace("text")</script>
   <script src="./script/function.js"></script>
+  <script src="./script/script.js"></script>
 </body>
 </html>

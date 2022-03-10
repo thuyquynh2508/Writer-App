@@ -1,13 +1,15 @@
 :root {
+    --background-color: #eff1f7;
     --primary-color: #2a579a;
     --header-text-color: rgb(242, 244, 246);
-    --border-radius: 5px;
+    --border-radius: 10px;
     --text-note-color: rgb(161, 157, 157);
     --heading-text-color: #6685b4;
     --hover-color: #3e6db5;
     --option-color: #5e6367;
     --white-color: #fff;
     --black-color: #000;
+    --recent-text-color: #b2bfd4;
 }
 
 * {
@@ -60,6 +62,8 @@ html {
     text-align: left;
     background-color: #e9eaec;
     color: var(--primary-color);
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
 }
 
@@ -73,4 +77,54 @@ html {
 .option-icon {
     min-width: 20px;
     color: var(--heading-text-color);
+}
+
+.recent-selection-btn {
+    color: #878795;
+    border: none;
+    background-color: var(--background-color);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 20px 0px;
+    height: calc(100% + 5px);
+}
+
+.recent-selection-btn:hover {
+    border-bottom: 3px solid #193975;
+    color: var(--black-color);
+}
+@keyframes slideDown {
+    0% {
+      transform: translateY(-500px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(500px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes slideDiagonal {
+    0% {
+        transform: translateX(200px) translateY(200px);
+    }
+    100% {
+        transform: translateX(0px) translateY(0px);
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(0px) scale(.2);
+    }
+    100% {
+        transform: translateX(0px) scale(1);
+    }
 }
