@@ -69,7 +69,7 @@ function showRecentList() {
   let fileArr = getFileList();
   let newFileItem = "";
   fileArr.forEach((element, index) => {
-    newFileItem += `<li class="file-recent__info">
+    newFileItem += `<li class="file-recent__info" onclick="openFile(${index})">
     <div class="file-recent__info-wrap">
       <div class="file-recent-heading">
         <div class="file-recent-heading__location"> 
