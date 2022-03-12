@@ -1,9 +1,6 @@
 function showRecentPage() {
   filePage.classList.add("remove");
   recentPage.classList.add("open");
-  for (const menuRecentBtn of menuRecentBtns) {
-    menuRecentBtn.addEventListener('click', )
-  }
 }
 
 function showFilePage() {
@@ -27,7 +24,15 @@ function getFileList() {
   return fileArr;
 }
 
-
+function getIndex (nameAtt) {
+  let fileIndex;
+  if (nameAtt == 0 || nameAtt) {
+    fileIndex = nameAtt;
+  } else {
+    fileIndex = fileArr.length - 1;
+  }
+  return fileIndex;
+}
 function createNewFile() {
   let fileArr = getFileList();
   saveBtn.setAttribute("indexSave", fileArr.length);
@@ -64,7 +69,7 @@ function showRecentList() {
   let fileArr = getFileList();
   let newFileItem = "";
   fileArr.forEach((element, index) => {
-    newFileItem += `<li class="file-recent__info" onclick="openFile(${index})">
+    newFileItem += `<li class="file-recent__info">
     <div class="file-recent__info-wrap">
       <div class="file-recent-heading">
         <div class="file-recent-heading__location"> 
@@ -74,6 +79,20 @@ function showRecentList() {
         <div class="file-recent-heading__menu"> 
           <button class="file-recent-heading__menu-btn file-recent-heading__menu-star"><i class="fas fa-star"></i></button>
           <button class="file-recent-heading__menu-btn file-recent-heading__menu-detail"><i class="fas fa-ellipsis-h"></i></button>
+          <ul class="file-recent-heading__menu-list">
+            <li class="file-recent-heading__menu-item">
+              <i class="fas fa-copy"></i>
+              <p>Duplicate</p>
+            </li>
+            <li class="file-recent-heading__menu-item">
+              <i class="fas fa-trash"></i>
+              <p>Delete</p>
+            </li>
+            <li class="file-recent-heading__menu-item">
+              <i class="fas fa-pen"></i>
+              <p>Edit</p>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="file-recent-wrap">
@@ -92,6 +111,7 @@ function showRecentList() {
   fileList.innerHTML = newFileItem;
 }
 
+
 function openFile(index) {
   let fileArr = getFileList();
   saveBtn.setAttribute("indexSave", index);
@@ -105,7 +125,14 @@ function openFile(index) {
   showFilePage();
 }
 
-
 function hideDetailModal() {
   detailModal.classList.remove("open");
+}
+
+function showMenuMobile() {
+  menuMobile.classList.add("open");
+}
+
+function hideMenuMobile() {
+  menuMobile.classList.remove("open");
 }

@@ -12,7 +12,6 @@ const newBtn = document.querySelector(".file-option__new");
 const renameBtn = document.querySelector(".file-option__rename");
 const deleteBtn = document.querySelector(".file-option__delete");
 const detailBtn = document.querySelector(".file-option__detail");
-//var downloadBtn = document.getElementById("download");
 const downloadBtn = document.querySelector(".file-option__download");
 const downloadLink = document.getElementById("download");
 const detailModal = document.querySelector(".detail-modal-container");
@@ -27,6 +26,14 @@ const menuRecentBtns = document.querySelectorAll(
   ".file-recent-heading__menu-detail"
 );
 const recentWrap = document.querySelector(".file-recent-heading__menu");
+
+const menuBar = document.querySelector(".mobile-menu");
+const menuMobile = document.querySelector(".file-bar");
+
+const popupDelete = document.querySelector(".popup-container");
+const popupYes = document.querySelector(".popup-btn__yes");
+const popupNo = document.querySelector(".popup-btn__no");
+
 removeHash();
 showNewFile();
 showRecentList();
@@ -46,12 +53,7 @@ saveBtn.addEventListener("click", function (e) {
   e.preventDefault();
   let fileArr = getFileList();
   let openIndex = this.getAttribute("indexSave");
-  let fileIndex;
-  if (openIndex == 0 || openIndex) {
-    fileIndex = openIndex;
-  } else {
-    fileIndex = fileArr.length - 1;
-  }
+  let fileIndex=getIndex(openIndex);
   fileArr[fileIndex].name = inputName.value;
   fileArr[fileIndex].content = CKEDITOR.instances.text.getData();
   fileArr[fileIndex].timeLastModified = TimeStr();
@@ -62,18 +64,14 @@ saveBtn.addEventListener("click", function (e) {
 renameBtn.addEventListener("click", function () {
   let fileArr = getFileList();
   let renameIndex = this.getAttribute("indexRename");
-  let fileIndex;
-  if (renameIndex == 0 || renameIndex) {
-    fileIndex = renameIndex;
-  } else {
-    fileIndex = fileArr.length - 1;
-  }
+  let fileIndex = getIndex(renameIndex);
   document.getElementById("name-input").focus();
   document.getElementById("name-input").select();
   inputName.addEventListener("keypress", (e) => {
     if (e.key == "Enter") {
       fileArr[fileIndex].name = inputName.value;
       localStorage.setItem("New file", JSON.stringify(fileArr));
+      document.getElementById("name-input").blur();
       showRecentList();
     }
   });
@@ -82,13 +80,20 @@ renameBtn.addEventListener("click", function () {
 document.getElementById("name-input").addEventListener("focus", function () {});
 deleteBtn.addEventListener("click", function (e) {
   e.preventDefault();
-  let fileArr = getFileList();
   let deleteIndex = this.getAttribute("indexDelete");
-  fileArr.splice(deleteIndex, 1);
-  localStorage.setItem("New file", JSON.stringify(fileArr));
+  popupDelete.classList.add('open');
+  popupYes.addEventListener('click', function(){
+    let fileArr = getFileList(); 
+    fileArr.splice(deleteIndex, 1);
+    localStorage.setItem("New file", JSON.stringify(fileArr));
+    popupDelete.classList.remove('open');
+    showRecentList();
+    showRecentPage();
+  })
   this.removeAttribute("indexDelete");
-  showRecentList();
-  showRecentPage();
+  popupNo.addEventListener('click', function() {
+    popupDelete.classList.remove('open');
+  })  
 });
 
 detailBtn.addEventListener("click", function (e) {
@@ -166,12 +171,7 @@ modalContainer.addEventListener("click", function (event) {
 downloadBtn.addEventListener("click", function () {
   let fileArr = getFileList();
   let downloadIndex = this.getAttribute("indexDownload");
-  let fileIndex;
-  if (downloadIndex == 0 || downloadIndex) {
-    fileIndex = downloadIndex;
-  } else {
-    fileIndex = fileArr.length - 1;
-  }
+  let fileIndex = getIndex(downloadIndex);
   downloadLink.setAttribute(
     "href",
     "data:text/html," + fileArr[fileIndex].content
@@ -179,22 +179,4 @@ downloadBtn.addEventListener("click", function () {
   downloadLink.setAttribute("download", fileArr[fileIndex].name + ".html");
 });
 
-// menuRecentBtn.addEventListener('click', function() {
-//   let menuDetail =
-//   `<ul class="file-recent-heading__menu-list">
-//     <li class="file-recent-heading__menu-item">
-//       <i class="fas fa-copy"></i>
-//       <p>Duplicate</p>
-//     </li>
-//     <li class="file-recent-heading__menu-item">
-//       <i class="fas fa-trash"></i>
-//       <p>Delete</p>
-//     </li>
-//     <li class="file-recent-heading__menu-item">
-//       <i class="fas fa-pen"></i>
-//       <p>Edit</p>
-//     </li>
-//   </ul>`
-//   recentWrap.innerHTML = menuDetail;
-//   menuRecent.classList.add('open');
-// })
+menuBar.addEventListener('click', showMenuMobile);

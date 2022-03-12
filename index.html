@@ -28,7 +28,7 @@
           </div>
         </div>
         <ul class="file-bar">    
-          <li class="btn file-bar__file-btn">
+          <li class="btn file-bar__btn file-bar__file-btn">
             File
             <div class="option file-bar__file-option">
             <button class="option-btn file-option__new">
@@ -61,7 +61,7 @@
             </button>
             </div>
           </li>
-          <li class="btn file-bar__edit-btn">
+          <li class="btn file-bar__btn file-bar__edit-btn">
             Edit
             <div class="option file-bar__edit-option">
               <button class="option-btn edit-option__undo">
@@ -90,12 +90,12 @@
               </button>
             </div>
           </li>
-          <li class="btn file-bar__view-btn">
+          <li class="btn file-bar__btn file-bar__view-btn">
             View
           </li>
-          <li class="btn file-bar__insert-btn">Insert</li>
-          <li class="btn file-bar__format-btn">Format</li>
-          <li class="btn file-bar__help-btn">Help</li>
+          <li class="btn file-bar__btn file-bar__insert-btn">Insert</li>
+          <li class="btn file-bar__btn file-bar__format-btn">Format</li>
+          <li class="btn file-bar__btn file-bar__help-btn">Help</li>
         </ul>
         
       </div>
@@ -157,6 +157,21 @@
       </div>
     </div>
   </div>
+
+  <div class="popup-container">
+    <div class="popup-wrapper">
+        <header class="popup-header">Delete</header>
+        <div class="popup-body">
+            <p class="popup-message popup-message__delete">This file will be deleted. Do you want to continue?</p>
+            <div class="popup-btn__wrapper">
+                <button class="popup-btn popup-btn__no">No</button>
+                <button class="popup-btn popup-btn__yes">Yes</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
   <script>CKEDITOR.replace("text")</script>
   <script src="./script/function.js"></script>
   <script src="./script/script.js"></script>
