@@ -9,9 +9,12 @@ function showFilePage() {
   removeHash();
 }
 
-
-function removeHash () { 
-  history.pushState("", document.title, window.location.pathname + window.location.search);
+function removeHash() {
+  history.pushState(
+    "",
+    document.title,
+    window.location.pathname + window.location.search
+  );
 }
 
 function getFileList() {
@@ -24,7 +27,7 @@ function getFileList() {
   return fileArr;
 }
 
-function getIndex (nameAtt) {
+function getIndex(nameAtt) {
   let fileIndex;
   if (nameAtt == 0 || nameAtt) {
     fileIndex = nameAtt;
@@ -62,7 +65,7 @@ function showNewFile() {
 
 function TimeStr() {
   let now = new Date();
-  return now.toLocaleString('en-US');
+  return now.toLocaleString("en-US");
 }
 
 function showRecentList() {
@@ -110,7 +113,6 @@ function showRecentList() {
   });
   fileList.innerHTML = newFileItem;
 }
-
 
 function openFile(index) {
   let fileArr = getFileList();

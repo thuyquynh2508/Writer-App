@@ -1,23 +1,27 @@
-const filePage = document.querySelector(".file-page");
-const recentPage = document.querySelector(".recent-page");
+const $ = document.querySelector.bind(document);
+const $$ = document.getElementById.bind(document);
 
-const fileContent = document.getElementById("text");
-const fileList = document.querySelector(".file-recent");
-const inputName = document.querySelector(".file-info__name-text");
+const filePage = $(".file-page");
+const recentPage = $(".recent-page");
+const fileList = $(".file-recent");
+const inputName = $(".file-info__name-text");
 
-const fileOption = document.querySelector(".file-bar__file-option");
-const returnBtn = document.querySelector(".recent-nav__return");
-const saveBtn = document.querySelector(".file-option__save");
-const newBtn = document.querySelector(".file-option__new");
-const renameBtn = document.querySelector(".file-option__rename");
-const deleteBtn = document.querySelector(".file-option__delete");
-const detailBtn = document.querySelector(".file-option__detail");
-const downloadBtn = document.querySelector(".file-option__download");
-const downloadLink = document.getElementById("download");
-const detailModal = document.querySelector(".detail-modal-container");
-const detailBody = document.querySelector(".detail-modal__body");
-const closeModal = document.querySelector(".detail-modal__close");
-const modalContainer = document.querySelector(".detail-modal-container");
+const fileOption = $(".file-bar__file-option");
+const returnBtn = $(".recent-nav__return");
+const saveBtn = $(".file-option__save");
+const newBtn = $(".file-option__new");
+const renameBtn = $(".file-option__rename");
+const deleteBtn = $(".file-option__delete");
+const detailBtn = $(".file-option__detail");
+const downloadBtn = $(".file-option__download");
+
+const detailModal = $(".detail-modal-container");
+const detailBody = $(".detail-modal__body");
+const closeModal = $(".detail-modal__close");
+const modalContainer = $(".detail-modal-container");
+
+const fileContent = $$("text");
+const downloadLink = $$("download");
 
 const menuRecent = document.getElementsByClassName(
   "file-recent-heading__menu-list"
@@ -25,14 +29,14 @@ const menuRecent = document.getElementsByClassName(
 const menuRecentBtns = document.querySelectorAll(
   ".file-recent-heading__menu-detail"
 );
-const recentWrap = document.querySelector(".file-recent-heading__menu");
+const recentWrap = $(".file-recent-heading__menu");
 
-const menuBar = document.querySelector(".mobile-menu");
-const menuMobile = document.querySelector(".file-bar");
+const menuBar = $(".mobile-menu");
+const menuMobile = $(".file-bar");
 
-const popupDelete = document.querySelector(".popup-container");
-const popupYes = document.querySelector(".popup-btn__yes");
-const popupNo = document.querySelector(".popup-btn__no");
+const popupDelete = $(".popup-container");
+const popupYes = $(".popup-btn__yes");
+const popupNo = $(".popup-btn__no");
 
 removeHash();
 showNewFile();
@@ -53,7 +57,7 @@ saveBtn.addEventListener("click", function (e) {
   e.preventDefault();
   let fileArr = getFileList();
   let openIndex = this.getAttribute("indexSave");
-  let fileIndex=getIndex(openIndex);
+  let fileIndex = getIndex(openIndex);
   fileArr[fileIndex].name = inputName.value;
   fileArr[fileIndex].content = CKEDITOR.instances.text.getData();
   fileArr[fileIndex].timeLastModified = TimeStr();
@@ -81,19 +85,19 @@ document.getElementById("name-input").addEventListener("focus", function () {});
 deleteBtn.addEventListener("click", function (e) {
   e.preventDefault();
   let deleteIndex = this.getAttribute("indexDelete");
-  popupDelete.classList.add('open');
-  popupYes.addEventListener('click', function(){
-    let fileArr = getFileList(); 
+  popupDelete.classList.add("open");
+  popupYes.addEventListener("click", function () {
+    let fileArr = getFileList();
     fileArr.splice(deleteIndex, 1);
     localStorage.setItem("New file", JSON.stringify(fileArr));
-    popupDelete.classList.remove('open');
+    popupDelete.classList.remove("open");
     showRecentList();
     showRecentPage();
-  })
+  });
   this.removeAttribute("indexDelete");
-  popupNo.addEventListener('click', function() {
-    popupDelete.classList.remove('open');
-  })  
+  popupNo.addEventListener("click", function () {
+    popupDelete.classList.remove("open");
+  });
 });
 
 detailBtn.addEventListener("click", function (e) {
@@ -179,4 +183,4 @@ downloadBtn.addEventListener("click", function () {
   downloadLink.setAttribute("download", fileArr[fileIndex].name + ".html");
 });
 
-menuBar.addEventListener('click', showMenuMobile);
+menuBar.addEventListener("click", showMenuMobile);
